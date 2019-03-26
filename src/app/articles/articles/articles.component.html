@@ -1,0 +1,30 @@
+<div class="article-preview">
+  <div class="article-meta" routerLink="/{{ article?.author.username }}">
+
+    <a><img #image [src]="article?.author.image" alt="page.png"></a>
+    <div class="info">
+      <a class="author">{{ article?.author.username }}</a>
+      <span class="date">{{ article?.createdAt | date :'MMM d, y, h:mm:ss a' }}</span>
+    </div>
+    <button
+      [ngClass]="{ like: article?.favorited }"
+      appDebounceClick
+      (debounceClick)="react(article)"
+      [disabled]="!condition"
+      class="btn btn-outline-primary btn-sm pull-xs-right"
+    >
+      <i class="ion-heart"></i> {{ article?.favoritesCount }}
+    </button>
+  </div>
+  <a class="preview-link" routerLink="/article/{{ article?.slug }}">
+    <h1>
+      {{ article?.title }}
+    </h1>
+    <p>{{ article?.description }}</p>
+    <span>Read more...</span>
+    <ul class="tag-list" *ngFor="let listtag of article?.tagList">
+      <li class="tag-default tag-pill tag-outline">{{ listtag }}</li>
+    </ul>
+  </a>
+
+</div>

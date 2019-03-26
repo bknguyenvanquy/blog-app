@@ -1,0 +1,12 @@
+.like {
+    background-color: #5CB85C;
+    color: white
+}
+
+a {
+  cursor: pointer;
+}
+
+.tag-list {
+  cursor: pointer;
+}

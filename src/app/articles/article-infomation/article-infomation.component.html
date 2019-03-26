@@ -1,0 +1,167 @@
+<div class="article-page">
+  <div class="banner">
+    <div class="container">
+      <h1>{{ articleInfor.title }}</h1>
+
+      <div class="article-meta">
+        <a routerLink="/{{ articleInfor.author.username }}"
+          ><img src="{{ articleInfor?.author.image }}"
+        /></a>
+        <div class="info">
+          <a routerLink="/{{ articleInfor.author.username }}" class="author">{{
+            articleInfor?.author.username
+          }}</a>
+          <span class="date">{{ articleInfor?.createdAt | date }}</span>
+        </div>
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          *ngIf="articleInfor.author.username === isUser()"
+          [routerLink]="['/editor', articleInfor.slug]"
+        >
+          <i class="ion-plus-round"></i>
+          &nbsp;Edit Article
+        </button>
+        &nbsp;&nbsp;
+        <button
+          class="btn btn-sm btn-outline-primary"
+          *ngIf="articleInfor.author.username === isUser()"
+          [ngClass]="{delete: (articleInfor.author.username === isUser())}"
+          (click)="onDelete(articleInfor)"
+        >
+          <i class="ion-heart" *ngIf="!(articleInfor.author.username === isUser())"></i>
+          <i class="ion-trash-a" *ngIf="(articleInfor.author.username === isUser())"></i>
+          &nbsp; Delete Article
+        </button>
+
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          *ngIf="!(articleInfor.author.username === isUser())"
+          [disabled]="!isUser()"
+        >
+          <i class="ion-minus-round" *ngIf="articleInfor?.author.following"></i>
+          <i class="ion-plus-round" *ngIf="!articleInfor?.author.following"></i>
+          &nbsp;<span
+            *ngIf="articleInfor?.author.following"
+            (click)="unfollowUser(articleInfor)"
+            >Unfollow</span
+          >
+          <span
+            *ngIf="!articleInfor?.author.following"
+            (click)="followUser(articleInfor)"
+            >Follow</span
+          >
+          {{ articleInfor.author.username }}
+        </button>
+        &nbsp;&nbsp;
+        <button
+          class="btn btn-sm btn-outline-primary"
+          *ngIf="!(articleInfor.author.username === isUser())"
+          [disabled]="!isUser()"
+        >
+          <i class="ion-heart"></i>
+          &nbsp;
+          <span
+            *ngIf="articleInfor?.favorited"
+            (click)="unfavorite(articleInfor)"
+            >Unfavorite</span
+          >
+          <span
+            *ngIf="!articleInfor?.favorited"
+            (click)="favorite(articleInfor)"
+            >Favorite</span
+          >({{ articleInfor.favoritesCount }})
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row article-content">
+      <div class="col-md-12">
+        <h2 id="introducing-ionic">{{ articleInfor?.description }}</h2>
+        <div [innerHTML]="articleInfor?.body | markdown"></div>
+        <div class="sidebar">
+          <div class="tag-list" *ngFor="let tag of articleInfor?.tagList">
+            <a class="tag-pill tag-default tag-outline">{{ tag }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="article-actions">
+      <div class="article-meta">
+        <a href=""><img src="{{ articleInfor?.author.image }}"/></a>
+        <div class="info">
+          <a href="" class="author">{{ articleInfor.author.username }}</a>
+          <span class="date">{{ articleInfor.createdAt | date :'MMM d, y, h:mm:ss a' }}</span>
+        </div>
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          *ngIf="articleInfor.author.username === isUser()"
+          [routerLink]="['/editor', articleInfor.slug]"
+        >
+          <i class="ion-plus-round"></i>
+          &nbsp;Edit Article
+        </button>
+        &nbsp;&nbsp;
+        <button
+          class="btn btn-sm btn-outline-primary"
+          *ngIf="articleInfor.author.username === isUser()"
+          [ngClass]="{delete2: (articleInfor.author.username === isUser())}"
+          (click)="onDelete(articleInfor)"
+        >
+        <i class="ion-heart" *ngIf="!(articleInfor.author.username === isUser())"></i>
+        <i class="ion-trash-a" *ngIf="(articleInfor.author.username === isUser())"></i>
+          &nbsp; Delete Article
+        </button>
+
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          *ngIf="!(articleInfor.author.username === isUser())"
+          [disabled]="!isUser()"
+        >
+          <i class="ion-minus-round" *ngIf="articleInfor?.author.following"></i>
+          <i class="ion-plus-round" *ngIf="!articleInfor?.author.following"></i>
+          &nbsp;<span
+            *ngIf="articleInfor?.author.following"
+            (click)="unfollowUser(articleInfor)"
+            >Unfollow</span
+          >
+          <span
+            *ngIf="!articleInfor?.author.following"
+            (click)="followUser(articleInfor)"
+            >Follow</span
+          >
+          {{ articleInfor.author.username }}
+        </button>
+        &nbsp;&nbsp;
+        <button
+          class="btn btn-sm btn-outline-primary"
+          *ngIf="!(articleInfor.author.username === isUser())"
+          [disabled]="!isUser()"
+        >
+          <i class="ion-heart"></i>
+          &nbsp;
+          <span
+            *ngIf="articleInfor?.favorited"
+            (click)="unfavorite(articleInfor)"
+            >Unfavorite</span
+          >
+          <span
+            *ngIf="!articleInfor?.favorited"
+            (click)="favorite(articleInfor)"
+            >Favorite</span
+          >({{ articleInfor.favoritesCount }})
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-8 offset-md-2">
+        <app-comment></app-comment>
+      </div>
+    </div>
+  </div>
+</div>

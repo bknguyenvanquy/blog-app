@@ -1,0 +1,62 @@
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+          <ul class="error-messages">
+              <li *ngIf="!(articleForm.controls.title.valid && articleForm.controls.title.touched) && isSubmitted">title can't be blank</li>
+              <li *ngIf="!(articleForm.controls.title.valid && articleForm.controls.title.touched && articleForm.controls.title.dirty) && isSubmitted">title is too short (minimum is 1 character)</li>
+              <li *ngIf="!(articleForm.controls.body.valid && articleForm.controls.body.touched && articleForm.controls.body.dirty) && isSubmitted">body can't be blank</li>
+              <li *ngIf="!(articleForm.controls.description.valid && articleForm.controls.description.touched && articleForm.controls.description.dirty) && isSubmitted">description can't be blank</li>
+              <li *ngIf="!(articleForm.controls.description.valid && articleForm.controls.description.touched && articleForm.controls.description.dirty) && isSubmitted">description is too short (minimum is 1 character)</li>
+          </ul>
+
+        <form [formGroup]="articleForm">
+          <fieldset>
+            <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="Article Title"
+                  formControlName="title"
+                  >
+            </fieldset>
+            <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="What's this article about?"
+                  formControlName="description"
+                  >
+            </fieldset>
+            <fieldset class="form-group">
+                <textarea
+                  class="form-control"
+                  rows="8"
+                  placeholder="Write your article (in markdown)"
+                  formControlName="body"
+                  ></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter tags"
+                  formControlName="tagField"
+                  (keyup.enter)="addTag()"
+                  ><div class="tag-list">
+                    <span *ngFor="let tag of tagList"
+                      class="tag-default tag-pill">
+                      <i class="ion-close-round" (click)="removeTag(tag)"></i>
+                      {{ tag }}
+                    </span>
+                  </div>
+            </fieldset>
+            <button class="btn btn-lg pull-xs-right btn-primary" type="button" (click)="onSubmit()">
+                Publish Article
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

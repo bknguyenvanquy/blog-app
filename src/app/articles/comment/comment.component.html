@@ -1,0 +1,43 @@
+<form class="card comment-form">
+  <div class="card-block">
+    <textarea
+      class="form-control"
+      placeholder="Write a comment..."
+      rows="3"
+      #input
+    ></textarea>
+  </div>
+  <div class="card-footer">
+    <img
+      src="{{ user.user.image }}"
+      class="comment-author-img"
+    />
+    <button class="btn btn-sm btn-primary"
+    (click)="postComment(input)">
+      Post Comment
+    </button>
+  </div>
+</form>
+
+<div class="card" *ngFor="let item of comment?.comments">
+    <div class="card-block" >
+      <p class="card-text">
+        {{ item.body }}
+      </p>
+    </div>
+    <div class="card-footer">
+      <a class="comment-author">
+        <img
+          src="{{ item?.author.image }}"
+          class="comment-author-img"
+        />
+      </a>
+      &nbsp;
+      <a class="comment-author" routerLink="/{{ item?.author.username  }}">{{ item?.author.username }}</a>
+      <span class="date-posted">{{ item?.createdAt }}</span>
+      <button class="btn btn-sm btn-danger"
+      (click)="delete(item.id)"
+      *ngIf="user.user.username == item?.author.username"
+      >Delete</button>
+    </div>
+  </div>
